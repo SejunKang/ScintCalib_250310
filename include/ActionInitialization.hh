@@ -1,7 +1,3 @@
-/*
-#ifndef ACTIONINITIALIZATION_HH
-#define ACTIONINITIALIZATION_HH
-*/
 #ifndef ACTINI_h
 #define ACTINI_h 1
 

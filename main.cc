@@ -18,7 +18,7 @@
  #include "G4UImanager.hh"
 
  #include "DetectorConstruction.hh"
- #include "physics.hh"  
+ #include "PhysicsList.hh"  
  #include "QBBC.hh"
  #include "ActionInitialization.hh"
 
@@ -28,7 +28,7 @@
  #include "QGSP_BERT.hh"
  #include "G4EmStandardPhysics.hh"
  #include "G4OpticalPhysics.hh"
-
+ #include "G4RadioactiveDecayPhysics.hh"
  int main(int argc, char **argv)
  {
      // Detect interactive mode (if no arguments) and define UI session
@@ -43,15 +43,16 @@
      // Construct the default run manager
      auto runManager = G4RunManagerFactory::CreateRunManager(G4RunManagerType::Serial);
 
-/*	 
-     // Physics list to be used (week 7)
+	 
+     // Physics list to be used
      G4VModularPhysicsList* PL = new QGSP_BERT;
      PL -> SetVerboseLevel(0);
      PL -> ReplacePhysics(new G4EmStandardPhysics());
      G4OpticalPhysics* OP = new G4OpticalPhysics();
      PL -> RegisterPhysics(OP);
+     PL -> RegisterPhysics(new G4RadioactiveDecayPhysics);
      runManager -> SetUserInitialization(PL);
-*/
+
 
 
      // Set mandatory initialization classes
@@ -64,8 +65,10 @@
      runManager->Initialize();
 
      // Initialize visualization
+    
      auto visManager = new G4VisExecutive;
      visManager->Initialize();
+    
 
      // Get the pointer to the User Interface manager
      auto UImanager = G4UImanager::GetUIpointer();
@@ -93,12 +96,12 @@
          G4String filename = argv[1];
          UImanager->ApplyCommand(command + filename);
      }
-
+ 
      // Job termination
      // Free the store: user actions, physics_list and detector_description are
      // owned and deleted by the run manager, so they should not be deleted
      // in the main() program !
-     delete visManager;
+     //delete visManager;  // Omit Visualization
      delete runManager;
 
      return 0;

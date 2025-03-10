@@ -10,7 +10,7 @@
  #include "G4Tubs.hh"
 
 #include "G4AnalysisManager.hh"
-#include "detector.hh"
+#include "SensitiveDetector.hh"
  class G4VPhysicalVolume;
  class G4LogicalVolume;
 
@@ -21,9 +21,7 @@
      virtual ~DetectorConstruction();
 
      virtual G4VPhysicalVolume *Construct();
-//sensitivedetector
-     G4LogicalVolume *logicDetector;
-     virtual void ConstructSDandField();
+
 
  private:
      // Dimensions and detector setup
